@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Topics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold">Finance Platform</div>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="hover:text-gray-400">Home</a></li>
+                <li><a href="#" class="hover:text-gray-400">About</a></li>
+                <li><a href="#" class="hover:text-gray-400">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-center py-16">
+        <h1 class="text-4xl font-bold mb-4">Hello, User!</h1>
+        <p class="text-lg">Explore the world of finance with the topics below</p>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="container mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 px-4">
+        <!-- IPO Card -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">IPO</h2>
+            <p class="text-gray-400 mb-6">Learn about Initial Public Offerings (IPO).</p>
+            <button onclick="navigateToQuiz('ipo')"
+                class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Get Started</button>
+        </div>
+
+        <!-- Stock Market Card -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">Stock Market</h2>
+            <p class="text-gray-400 mb-6">Dive into the Stock Market and how it works.</p>
+            <button onclick="navigateToQuiz('stock')"
+                class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Get Started</button>
+        </div>
+
+        <!-- Saving Card -->
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">Saving</h2>
+            <p class="text-gray-400 mb-6">Understand the importance of saving and investing.</p>
+            <button onclick="navigateToQuiz('saving')"
+                class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Get Started</button>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        function navigateToQuiz(topic) {
+            let quizPage = '';
+
+            // Choose the correct quiz page based on the topic
+            switch (topic) {
+                case 'ipo':
+                    quizPage = 'quiz_ipo.html';
+                    break;
+                case 'stock':
+                    quizPage = 'quiz_stock.html';
+                    break;
+                case 'saving':
+                    quizPage = 'quiz_saving.html';
+                    break;
+            }
+
+            // Redirect to the chosen quiz page
+            window.location.href = quizPage;
+        }
+    </script>
+
+</body>
+
+</html>

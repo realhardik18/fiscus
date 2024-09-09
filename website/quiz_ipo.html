@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPO Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold">Finance Platform</div>
+            <ul class="flex space-x-4">
+                <li><a href="index.html" class="hover:text-gray-400">Home</a></li>
+                <li><a href="#" class="hover:text-gray-400">About</a></li>
+                <li><a href="#" class="hover:text-gray-400">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Quiz Section -->
+    <section class="container mx-auto py-16 text-center">
+        <h1 class="text-3xl font-bold mb-6">IPO Quiz</h1>
+
+        <!-- Question Palette -->
+        <div class="flex justify-center mb-8">
+            <div id="question-palette" class="flex flex-wrap space-x-2 space-y-2 justify-center">
+                <!-- Question numbers will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <!-- Quiz Question and Options -->
+        <div id="quiz-container" class="bg-gray-800 rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+            <p id="question" class="text-xl font-semibold mb-4">Question text will go here</p>
+            <form id="options-form" class="space-y-4">
+                <!-- Options will be inserted here dynamically -->
+            </form>
+            <button id="check-answer" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mt-6 rounded">Check
+                Answer</button>
+        </div>
+
+        <!-- Done Button -->
+        <button id="done-quiz"
+            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mt-8 rounded hidden">Done</button>
+    </section>
+
+    <script>
+        const quizData = [
+            {
+                "question": "What is an initial public offering (IPO) in which shares of a company are sold to?",
+                "options": [
+                    "only institutional investors",
+                    "only retail investors",
+                    "institutional investors and usually also to retail investors",
+                    "private equity investors"
+                ],
+                "correct": "institutional investors and usually also to retail investors"
+            },
+            {
+                "question": "Who typically underwrites an IPO?",
+                "options": [
+                    "One or more investment banks",
+                    "One or more stock exchanges",
+                    "Private equity investors",
+                    "Company founders"
+                ],
+                "correct": "One or more investment banks"
+            },
+            // Add the rest of the questions here
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+
+        // Load the first question on page load
+        window.onload = () => {
+            loadQuestion(currentQuestionIndex);
+            createQuestionPalette();
+        };
+
+        // Load the question and its options
+        function loadQuestion(index) {
+            const questionData = quizData[index];
+            document.getElementById("question").textContent = questionData.question;
+
+            const optionsForm = document.getElementById("options-form");
+            optionsForm.innerHTML = "";
+
+            questionData.options.forEach((option, i) => {
+                const optionElement = document.createElement("div");
+                optionElement.classList.add("option", "py-2", "px-4", "rounded");
+
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "answer";
+                input.value = option;
+                input.id = `option-${i}`;
+
+                const label = document.createElement("label");
+                label.setAttribute("for", `option-${i}`);
+                label.textContent = option;
+
+                optionElement.appendChild(input);
+                optionElement.appendChild(label);
+                optionsForm.appendChild(optionElement);
+            });
+        }
+
+        // Check answer logic
+        document.getElementById("check-answer").onclick = function () {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            const correctAnswer = quizData[currentQuestionIndex].correct;
+            const selectedOption = selectedAnswer.value;
+
+            const options = document.querySelectorAll(".option");
+
+            options.forEach(option => {
+                const label = option.querySelector("label");
+                const input = option.querySelector("input");
+
+                if (input.value === selectedOption) {
+                    if (selectedOption === correctAnswer) {
+                        label.classList.add("bg-green-500", "border", "border-green-500");
+                        launchConfetti();
+                        correctAnswers++;
+                    } else {
+                        label.classList.add("bg-red-500", "border", "border-red-500");
+                    }
+                }
+
+                if (input.value === correctAnswer && selectedOption !== correctAnswer) {
+                    label.classList.add("bg-green-500", "border", "border-green-500");
+                }
+            });
+
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                setTimeout(() => loadQuestion(currentQuestionIndex), 2000); // Load next question after 2 seconds
+            } else {
+                document.getElementById("check-answer").classList.add("hidden");
+                document.getElementById("done-quiz").classList.remove("hidden");
+            }
+        };
+
+        // Create question palette
+        function createQuestionPalette() {
+            const palette = document.getElementById("question-palette");
+            quizData.forEach((_, index) => {
+                const button = document.createElement("button");
+                button.textContent = index + 1;
+                button.classList.add("bg-gray-700", "hover:bg-gray-600", "text-white", "py-2", "px-4", "rounded", "m-1");
+                button.onclick = () => switchQuestion(index);
+                palette.appendChild(button);
+            });
+        }
+
+        // Switch between questions
+        function switchQuestion(index) {
+            currentQuestionIndex = index;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        // Launch confetti on correct answer
+        function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Done button takes the user to the homepage
+        document.getElementById("done-quiz").onclick = function () {
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+
+</html>

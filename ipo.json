@@ -1,0 +1,103 @@
+[
+    {
+      "question": "What is an initial public offering (IPO) in which shares of a company are sold to?",
+      "options": [
+        "only institutional investors",
+        "only retail investors",
+        "institutional investors and usually also to retail investors",
+        "private equity investors"
+      ],
+      "correct": "institutional investors and usually also to retail investors"
+    },
+    {
+      "question": "Who typically underwrites an IPO?",
+      "options": [
+        "One or more investment banks",
+        "One or more stock exchanges",
+        "Private equity investors",
+        "Company founders"
+      ],
+      "correct": "One or more investment banks"
+    },
+    {
+      "question": "What is the process of transforming a privately held company into a public company known as?",
+      "options": [
+        "Floating",
+        "Going public",
+        "IPO",
+        "Listing"
+      ],
+      "correct": "Floating"
+    },
+    {
+      "question": "What is the purpose of an IPO in terms of raising capital?",
+      "options": [
+        "To reduce debt",
+        "To raise new equity capital",
+        "To increase dividends",
+        "To decrease shareholders"
+      ],
+      "correct": "To raise new equity capital"
+    },
+    {
+      "question": "What happens to shares after an IPO?",
+      "options": [
+        "They are traded freely in the open market",
+        "They are frozen for a certain period",
+        "They are only traded among institutional investors",
+        "They are only traded among retail investors"
+      ],
+      "correct": "They are traded freely in the open market"
+    },
+    {
+      "question": "What is the minimum requirement stipulated by stock exchanges for an IPO?",
+      "options": [
+        "Minimum number of shares sold",
+        "Minimum free float",
+        "Minimum share price",
+        "Minimum number of investors"
+      ],
+      "correct": "Minimum free float"
+    },
+    {
+      "question": "What is the document that discloses details of the proposed offering to potential purchasers?",
+      "options": [
+        "Prospectus",
+        "Annual report",
+        "Balance sheet",
+        "Income statement"
+      ],
+      "correct": "Prospectus"
+    },
+    {
+      "question": "What is the role of an underwriter in an IPO?",
+      "options": [
+        "To provide legal advice",
+        "To provide accounting services",
+        "To help with correctly assessing the value of shares",
+        "To provide marketing services"
+      ],
+      "correct": "To help with correctly assessing the value of shares"
+    },
+    {
+      "question": "What is an alternative method to traditional IPOs that has been explored and applied?",
+      "options": [
+        "Dutch auction",
+        "Private placement",
+        "Rights issue",
+        "Stock split"
+      ],
+      "correct": "Dutch auction"
+    },
+    {
+      "question": "What is a significant cost involved in an IPO?",
+      "options": [
+        "Banking and legal fees",
+        "Marketing and advertising expenses",
+        "Employee salaries and benefits",
+        "Research and development expenses"
+      ],
+      "correct": "Banking and legal fees"
+    }
+  ]
+  
