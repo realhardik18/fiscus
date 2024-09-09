@@ -26,7 +26,7 @@ def get_data(page):
     return article.summary
 
 #print(generate(num_questions=10,text=get_data('Initial_public_offering'),filename='ipo'))
-print(generate(num_questions=10,text=get_data('Stock_market'),filename='stock_market'))
-print(generate(num_questions=10,text=get_data('Saving'),filename='saving'))
+#print(generate(num_questions=10,text=get_data('Stock_market'),filename='stock_market'))
+#print(generate(num_questions=10,text=get_data('Saving'),filename='saving'))
 
 

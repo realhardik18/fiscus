@@ -7,6 +7,40 @@
     <title>IPO Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Custom styles for radio buttons */
+        input[type="radio"] {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            outline: none;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="radio"]:checked {
+            background-color: #10b981;
+            /* Tailwind's green-500 */
+            border-color: #10b981;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        label:hover {
+            background-color: #2d3748;
+            /* Tailwind's gray-700 */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-900 text-white">
@@ -14,7 +48,7 @@
     <!-- Navbar -->
     <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="text-xl font-bold">Finance Platform</div>
+            <div class="text-xl font-bold">Fiscus</div>
             <ul class="flex space-x-4">
                 <li><a href="index.html" class="hover:text-gray-400">Home</a></li>
                 <li><a href="#" class="hover:text-gray-400">About</a></li>
@@ -27,21 +61,29 @@
     <section class="container mx-auto py-16 text-center">
         <h1 class="text-3xl font-bold mb-6">IPO Quiz</h1>
 
-        <!-- Question Palette -->
-        <div class="flex justify-center mb-8">
-            <div id="question-palette" class="flex flex-wrap space-x-2 space-y-2 justify-center">
-                <!-- Question numbers will be inserted here dynamically -->
-            </div>
-        </div>
-
         <!-- Quiz Question and Options -->
         <div id="quiz-container" class="bg-gray-800 rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-700 rounded-full mb-4">
+                <div id="progress-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%;"></div>
+            </div>
             <p id="question" class="text-xl font-semibold mb-4">Question text will go here</p>
             <form id="options-form" class="space-y-4">
                 <!-- Options will be inserted here dynamically -->
             </form>
-            <button id="check-answer" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mt-6 rounded">Check
-                Answer</button>
+            <div class="flex justify-between mt-6">
+                <button id="previous-question"
+                    class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-4 rounded hidden">Previous</button>
+                <div>
+                    <button id="check-answer"
+                        class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mr-2 rounded">Check Answer</button>
+                    <button id="next-question"
+                        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden">Next</button>
+                </div>
+            </div>
+            <!-- Exit Quiz Button -->
+            <button id="exit-quiz" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 mt-4 rounded">Exit
+                Quiz</button>
         </div>
 
         <!-- Done Button -->
@@ -52,7 +94,7 @@
     <script>
         const quizData = [
             {
-                "question": "What is an initial public offering (IPO) in which shares of a company are sold to?",
+                "question": "To whom are the shares of a company are sold to?",
                 "options": [
                     "only institutional investors",
                     "only retail investors",
@@ -71,7 +113,86 @@
                 ],
                 "correct": "One or more investment banks"
             },
-            // Add the rest of the questions here
+            {
+                "question": "What is the process of transforming a privately held company into a public company known as?",
+                "options": [
+                    "Floating",
+                    "Going public",
+                    "IPO",
+                    "Listing"
+                ],
+                "correct": "Floating"
+            },
+            {
+                "question": "What is the purpose of an IPO in terms of raising capital?",
+                "options": [
+                    "To reduce debt",
+                    "To raise new equity capital",
+                    "To increase dividends",
+                    "To decrease shareholders"
+                ],
+                "correct": "To raise new equity capital"
+            },
+            {
+                "question": "What happens to shares after an IPO?",
+                "options": [
+                    "They are traded freely in the open market",
+                    "They are frozen for a certain period",
+                    "They are only traded among institutional investors",
+                    "They are only traded among retail investors"
+                ],
+                "correct": "They are traded freely in the open market"
+            },
+            {
+                "question": "What is the minimum requirement stipulated by stock exchanges for an IPO?",
+                "options": [
+                    "Minimum number of shares sold",
+                    "Minimum free float",
+                    "Minimum share price",
+                    "Minimum number of investors"
+                ],
+                "correct": "Minimum free float"
+            },
+            {
+                "question": "What is the document that discloses details of the proposed offering to potential purchasers?",
+                "options": [
+                    "Prospectus",
+                    "Annual report",
+                    "Balance sheet",
+                    "Income statement"
+                ],
+                "correct": "Prospectus"
+            },
+            {
+                "question": "What is the role of an underwriter in an IPO?",
+                "options": [
+                    "To provide legal advice",
+                    "To provide accounting services",
+                    "To help with correctly assessing the value of shares",
+                    "To provide marketing services"
+                ],
+                "correct": "To help with correctly assessing the value of shares"
+            },
+            {
+                "question": "What is an alternative method to traditional IPOs that has been explored and applied?",
+                "options": [
+                    "Dutch auction",
+                    "Private placement",
+                    "Rights issue",
+                    "Stock split"
+                ],
+                "correct": "Dutch auction"
+            },
+            {
+                "question": "What is a significant cost involved in an IPO?",
+                "options": [
+                    "Banking and legal fees",
+                    "Marketing and advertising expenses",
+                    "Employee salaries and benefits",
+                    "Research and development expenses"
+                ],
+                "correct": "Banking and legal fees"
+            }
         ];
 
         let currentQuestionIndex = 0;
@@ -80,7 +201,7 @@
         // Load the first question on page load
         window.onload = () => {
             loadQuestion(currentQuestionIndex);
-            createQuestionPalette();
+            updateProgressBar();
         };
 
         // Load the question and its options
@@ -93,13 +214,14 @@
 
             questionData.options.forEach((option, i) => {
                 const optionElement = document.createElement("div");
-                optionElement.classList.add("option", "py-2", "px-4", "rounded");
+                optionElement.classList.add("flex", "items-center", "bg-gray-700", "hover:bg-gray-600", "rounded-lg", "p-2");
 
                 const input = document.createElement("input");
                 input.type = "radio";
                 input.name = "answer";
                 input.value = option;
                 input.id = `option-${i}`;
+                input.classList.add("mr-2");
 
                 const label = document.createElement("label");
                 label.setAttribute("for", `option-${i}`);
@@ -109,6 +231,10 @@
                 optionElement.appendChild(label);
                 optionsForm.appendChild(optionElement);
             });
+
+            // Show or hide navigation buttons
+            document.getElementById("previous-question").classList.toggle("hidden", index === 0);
+            document.getElementById("next-question").classList.add("hidden");
         }
 
         // Check answer logic
@@ -122,66 +248,73 @@
             const correctAnswer = quizData[currentQuestionIndex].correct;
             const selectedOption = selectedAnswer.value;
 
-            const options = document.querySelectorAll(".option");
-
+            const options = document.querySelectorAll("input[name='answer']");
             options.forEach(option => {
-                const label = option.querySelector("label");
-                const input = option.querySelector("input");
-
-                if (input.value === selectedOption) {
+                const label = document.querySelector(`label[for='${option.id}']`);
+                if (option.value === selectedOption) {
                     if (selectedOption === correctAnswer) {
-                        label.classList.add("bg-green-500", "border", "border-green-500");
-                        launchConfetti();
+                        label.classList.add("text-green-500", "font-bold");
                         correctAnswers++;
+                        launchConfetti();
                     } else {
-                        label.classList.add("bg-red-500", "border", "border-red-500");
+                        label.classList.add("text-red-500", "font-bold");
                     }
-                }
-
-                if (input.value === correctAnswer && selectedOption !== correctAnswer) {
-                    label.classList.add("bg-green-500", "border", "border-green-500");
+                } else if (option.value === correctAnswer) {
+                    label.classList.add("text-green-500", "font-bold");
                 }
             });
 
+            // Show next question or done button
             if (currentQuestionIndex < quizData.length - 1) {
-                currentQuestionIndex++;
-                setTimeout(() => loadQuestion(currentQuestionIndex), 2000); // Load next question after 2 seconds
+                document.getElementById("next-question").classList.remove("hidden");
             } else {
-                document.getElementById("check-answer").classList.add("hidden");
                 document.getElementById("done-quiz").classList.remove("hidden");
             }
+
+            // Update progress bar
+            updateProgressBar();
         };
 
-        // Create question palette
-        function createQuestionPalette() {
-            const palette = document.getElementById("question-palette");
-            quizData.forEach((_, index) => {
-                const button = document.createElement("button");
-                button.textContent = index + 1;
-                button.classList.add("bg-gray-700", "hover:bg-gray-600", "text-white", "py-2", "px-4", "rounded", "m-1");
-                button.onclick = () => switchQuestion(index);
-                palette.appendChild(button);
-            });
-        }
-
-        // Switch between questions
-        function switchQuestion(index) {
-            currentQuestionIndex = index;
+        // Handle next question button click
+        document.getElementById("next-question").onclick = function () {
+            currentQuestionIndex++;
             loadQuestion(currentQuestionIndex);
-        }
+            document.getElementById("next-question").classList.add("hidden");
+        };
 
-        // Launch confetti on correct answer
+        // Handle previous question button click
+        document.getElementById("previous-question").onclick = function () {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
+            document.getElementById("next-question").classList.add("hidden");
+        };
+
+        // Launch confetti effect
         function launchConfetti() {
             confetti({
-                particleCount: 100,
                 spread: 70,
-                origin: { y: 0.6 }
+                startVelocity: 30,
+                particleCount: 70,
+                origin: { y: 0.6 },
             });
         }
 
-        // Done button takes the user to the homepage
+        // Update progress bar
+        function updateProgressBar() {
+            const progressBar = document.getElementById("progress-bar");
+            const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        // Handle done quiz button click
         document.getElementById("done-quiz").onclick = function () {
-            window.location.href = 'index.html';
+            alert(`Quiz completed! You answered ${correctAnswers} out of ${quizData.length} questions correctly.`);
+            window.location.href = "index.html"; // Redirect to home page
+        };
+
+        // Handle exit quiz button click
+        document.getElementById("exit-quiz").onclick = function () {
+            window.location.href = "index.html"; // Redirect to home page
         };
     </script>
 </body>
